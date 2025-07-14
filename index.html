@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JARVIS AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f8f8;
+      color: #333;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .logout-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #e53935;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.2s ease;
+    }
+
+    .logout-button:hover {
+      background-color: #c62828;
+    }
+
+    .title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    .chat-box {
+      width: 100%;
+      max-width: 600px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+      max-height: 400px;
+      margin-bottom: 20px;
+    }
+
+    .chat-entry {
+      margin: 15px 0;
+    }
+
+    .user {
+      font-weight: bold;
+      color: #1a73e8;
+      margin-bottom: 5px;
+    }
+
+    .bot {
+      font-weight: bold;
+      color: #0b8043;
+      margin-top: 10px;
+    }
+
+    form {
+      display: flex;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px 0 0 6px;
+      outline: none;
+    }
+
+    button {
+      padding: 12px 20px;
+      background-color: #1a73e8;
+      color: #fff;
+      border: none;
+      border-radius: 0 6px 6px 0;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #155ab6;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔒 Logout Button -->
+  <a href="/logout" class="logout-button">Logout</a>
+
+  <!-- 💬 Title -->
+  <div class="title">🤖 JARVIS AI Chat</div>
+
+  <!-- 💬 Chat Display -->
+  <div class="chat-box">
+    {% for msg in current_chat.messages %}
+    <div class="chat-entry">
+      <div class="user">{{ username }}:</div>
+      <div>{{ msg.user }}</div>
+      <div class="bot">JARVIS:</div>
+      <div>{{ msg.bot }}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- 💬 Input Box -->
+  <form action="/chat/{{ current_chat.id }}/send" method="post">
+    <input type="text" name="msg" placeholder="Type your message here..." required />
+    <button type="submit">Send</button>
+  </form>
+
+  <!-- 📄 Footer -->
+  <footer>
+    JARVIS AI - Simple, Clean, and Smart
+
